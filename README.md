@@ -1,1 +1,1 @@
-# ez-chart
+# ez-char
