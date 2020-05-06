@@ -40,6 +40,9 @@ export const getParamsArray = (params = [], list = []) => {
 export const isDefType = (type) => {
   return types.includes(type)
 }
+export let getCustomTypes = function () {
+  return Object.keys(this.customCharts)
+}
 export const isCustomType = (type) => {
   const customTypes = getCustomTypes()
   return customTypes.includes(type)
@@ -47,7 +50,5 @@ export const isCustomType = (type) => {
 export const checkType = (type) => {
   return isDefType(type) || isCustomType(type)
 }
-export let getCustomTypes = function () {
-  return Object.keys(this.customCharts)
-}
+
 export const _get = get

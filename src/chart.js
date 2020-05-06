@@ -37,12 +37,7 @@ class EzChart {
   extendCustomChart (customCharts) {
     this.customCharts = customCharts
   }
-  static
-  utils () {
-    return {
-      ...utils
-    }
-  }
+  static utils = utils
 }
 utils.getCustomTypes = utils.getCustomTypes.bind(EzChart)
 export default EzChart

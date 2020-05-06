@@ -14,6 +14,9 @@ const webpackConfig = merge(baseWebpackConfig, {
   output: {
     path: config.build.assetsRoot,
     filename: 'ez-chart.js',
+    libraryTarget: 'umd',
+    // globalObject: 'this',
+    libraryExport: 'default',
     library: 'EzChart'
   },
   plugins: [
