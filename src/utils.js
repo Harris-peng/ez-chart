@@ -1,7 +1,7 @@
 import {needOptionsKeys} from './constant'
-import echartsOptions from './echarts-options'
+import baseOptions from './options'
 import get from 'lodash/get'
-const types = Object.keys(echartsOptions)
+const types = Object.keys(baseOptions)
 
 export const checkOptions = (options) => {
   const message = []

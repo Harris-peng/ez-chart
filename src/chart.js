@@ -1,22 +1,31 @@
 import * as utils from './utils'
-import baseOptions from './echarts-options'
+import baseOptions from './options'
 import processOption from './process-option'
 class EzChart {
-  constructor (options) {
-    utils.checkOptions(options)
-    this.type = options.type
-    this.data = options.data
-    this.keyMap = options.keyMap
-    this.params = utils._get('options.params', {})
+  constructor (options = {}) {
+    this.options = options
   }
-  getOption () {
+  getOption (options) {
+    this.checkOptions(options)
     if (utils.isDefType(this.type)) {
       const option = EzChart.getBaseOption(this.type)
       const data = EzChart.getData(this.keyMap, this.data)
       return EzChart.processOption(option, data)
     } else if (utils.isCustomType(this.type)) {
-      return this.customCharts[this.type].apply(this)
+      return this.customCharts[this.type].apply(this, [this.options])
     }
+  }
+  checkOptions (options = {}) {
+    Object.assign(this.options, options)
+    utils.checkOptions(this.options)
+    this.setOption()
+  }
+  setOption () {
+    const {type, data, keyMap, params = {}} = this.options
+    this.type = type
+    this.data = data
+    this.keyMap = keyMap
+    this.params = params
   }
   static
   getBaseOption (type) {
@@ -39,5 +48,7 @@ class EzChart {
   }
   static utils = utils
 }
+
 utils.getCustomTypes = utils.getCustomTypes.bind(EzChart)
+
 export default EzChart
