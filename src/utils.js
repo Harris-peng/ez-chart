@@ -41,7 +41,7 @@ export const isDefType = (type) => {
   return types.includes(type)
 }
 export let getCustomTypes = function () {
-  return Object.keys(this.customCharts)
+  return Object.keys(this.customCharts || {})
 }
 export const isCustomType = (type) => {
   const customTypes = getCustomTypes()
@@ -50,5 +50,75 @@ export const isCustomType = (type) => {
 export const checkType = (type) => {
   return isDefType(type) || isCustomType(type)
 }
+export const setData = (list, labels) => {
+  let res = [];
+  if (list && list.length) {
+    res = list.map((value, j) => {
+      return {value, name: labels[j]};
+    });
+  }
+  return res;
+}
+export const keepDecimals = (value, bit = 2) => {
+  if (Number.isNaN(value)) {
+    value = 0;
+    console.error('keepDecimals value = NAN');
+  }
+  if (typeof value !== 'number' || typeof bit !== 'number') {
+    value = bit = 0;
+    console.error('keepDecimals参数不合法');
+  }
+  let num = Math.pow(10, bit);
+  return Math.round(value * num) / num;
+};
+export const UNIT_LIST = ['个','十', '百', '千', '万', '十万', '百万', '千万', '亿', '十亿', '百亿', '千亿', '万亿', '十万亿', '百万亿', '千万亿'];
+/**
+ * 指定一个数字列表，返回取整之后的新列表及单位
+ * @param list
+ * @param rate // 阈值达到该阈值的才取整
+ * @returns {{unit: *, list: *}}
+ * @formatUnit([0,1000,1500])
+ * {
+ *   list: [0 ,1, 1.5],
+ *   unit: '千'
+ * }
+ */
+export const formatNumbers = (list = [], rate = 4) => {
+  let sortlist = list.sort((a,b) => a-b);
+  let len = (sortlist.find(item => item) + '').length -1;
+  if (list.length === 0 || len < rate) {
+    return {
+      list: list,
+      unit: '',
+      divisor: 1
+    };
+  }
+  if (len > UNIT_LIST.length) len = UNIT_LIST.length;
+  if (len) {
+    list = list.map(num => {
+      return num / Math.pow(10,len);
+    });
+  }
+  return {
+    list: list,
+    unit: UNIT_LIST[len],
+    divisor: Math.pow(10,len),
+  };
+};
+
+/**
+ * 保留数字有效小数位
+ * @param num
+ * @param bit 保留位数
+ * @returns {number|*}
+ * keepDecimalPlaces(1000.0001111,2)
+ * 1000.00011
+ */
+export const keepDecimalPlaces = (num, bit = 2)=>{
+  if (!num) return num;
+  const reg = new RegExp(`(\\d+\\.0*[1-9]{1,${bit}})(\\d*)`);
+  return Number(String(num).replace(reg, '$`$1'));
+};
+
 
 export const _get = get

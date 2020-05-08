@@ -10,7 +10,7 @@ class EzChart {
     if (utils.isDefType(this.type)) {
       const option = EzChart.getBaseOption(this.type)
       const data = EzChart.getData(this.keyMap, this.data)
-      return EzChart.processOption(option, data)
+      return EzChart.processOption(option, data, this.type)
     } else if (utils.isCustomType(this.type)) {
       return this.customCharts[this.type].apply(this, [this.options])
     }
@@ -49,6 +49,5 @@ class EzChart {
   static utils = utils
 }
 
-utils.getCustomTypes = utils.getCustomTypes.bind(EzChart)
 
 export default EzChart
