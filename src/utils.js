@@ -1,8 +1,8 @@
-import {needOptionsKeys} from './constant'
+import {needOptionsKeys, UNIT_LIST} from './constant'
 import baseOptions from './options'
-import get from 'lodash/get'
+import EzChart from './chart'
+import get from "lodash/get";
 const types = Object.keys(baseOptions)
-
 export const checkOptions = (options) => {
   const message = []
   needOptionsKeys.forEach(key => {
@@ -40,9 +40,6 @@ export const getParamsArray = (params = [], list = []) => {
 export const isDefType = (type) => {
   return types.includes(type)
 }
-export let getCustomTypes = function () {
-  return Object.keys(this.customCharts || {})
-}
 export const isCustomType = (type) => {
   const customTypes = getCustomTypes()
   return customTypes.includes(type)
@@ -71,7 +68,6 @@ export const keepDecimals = (value, bit = 2) => {
   let num = Math.pow(10, bit);
   return Math.round(value * num) / num;
 };
-export const UNIT_LIST = ['个','十', '百', '千', '万', '十万', '百万', '千万', '亿', '十亿', '百亿', '千亿', '万亿', '十万亿', '百万亿', '千万亿'];
 /**
  * 指定一个数字列表，返回取整之后的新列表及单位
  * @param list
@@ -105,7 +101,6 @@ export const formatNumbers = (list = [], rate = 4) => {
     divisor: Math.pow(10,len),
   };
 };
-
 /**
  * 保留数字有效小数位
  * @param num
@@ -119,6 +114,6 @@ export const keepDecimalPlaces = (num, bit = 2)=>{
   const reg = new RegExp(`(\\d+\\.0*[1-9]{1,${bit}})(\\d*)`);
   return Number(String(num).replace(reg, '$`$1'));
 };
-
-
-export const _get = get
+export const getCustomTypes = function () {
+  return Object.keys(get(EzChart, 'options.customCharts', {}))
+}

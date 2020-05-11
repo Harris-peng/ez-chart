@@ -1,6 +1,8 @@
 import * as utils from './utils'
 import baseOptions from './options'
 import processOption from './process-option'
+import merge from 'lodash/merge'
+import get from 'lodash/get'
 class EzChart {
   constructor (options = {}) {
     this.options = options
@@ -12,7 +14,7 @@ class EzChart {
       const data = EzChart.getData(this.keyMap, this.data)
       return EzChart.processOption(option, data, this.type)
     } else if (utils.isCustomType(this.type)) {
-      return this.customCharts[this.type].apply(this, [this.options])
+      return EzChart.options.customCharts[this.type].apply(this, [this.options])
     }
   }
   checkOptions (options = {}) {
@@ -29,8 +31,7 @@ class EzChart {
   }
   static
   getBaseOption (type) {
-    let option = {}
-    if (baseOptions[type]) option = baseOptions[type]()
+    const option = merge(baseOptions[type](), get(EzChart, 'options.baseOptions', {}))
     return option
   }
   static
@@ -43,11 +44,10 @@ class EzChart {
     return processOption[type](data, option)
   }
   static
-  extendCustomChart (customCharts) {
-    this.customCharts = customCharts
+  extend ({customCharts: {}, baseOptions = {}} = options) {
+    EzChart.options = options
   }
   static utils = utils
 }
-
 
 export default EzChart
