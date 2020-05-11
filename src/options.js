@@ -20,7 +20,7 @@ export default {
         type: 'value'
       },
       series: []
-    };
+    }
   },
   bar () {
     return {
@@ -47,7 +47,7 @@ export default {
         }
       ],
       series: []
-    };
+    }
   },
   pie () {
     return {
@@ -68,7 +68,7 @@ export default {
         label: {show: false},
         data: []
       }
-    };
+    }
   },
   scatter () {
     return {
@@ -97,7 +97,7 @@ export default {
         roam: false,
         data: []
       }]
-    };
+    }
   },
   gauge () {
     return {
@@ -105,7 +105,7 @@ export default {
         formatter: '{b} : {c}%'
       },
       series: []
-    };
+    }
   },
   funnel () {
     return {
@@ -121,11 +121,11 @@ export default {
         }
       },
       series: []
-    };
+    }
   },
   graph () {
     return {
       series: []
-    };
+    }
   }
 }

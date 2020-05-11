@@ -29,6 +29,11 @@ module.exports = {
       ? config.build.assetsPublicPath
       : config.dev.assetsPublicPath,
   },
+  /*externals: {
+    echarts: 'echarts',
+    vue: 'vue',
+    lodash: 'lodash',
+  },*/
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {

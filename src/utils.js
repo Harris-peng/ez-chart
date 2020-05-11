@@ -1,7 +1,7 @@
 import {needOptionsKeys, UNIT_LIST} from './constant'
 import baseOptions from './options'
 import EzChart from './chart'
-import get from "lodash/get";
+import get from 'lodash/get'
 const types = Object.keys(baseOptions)
 export const checkOptions = (options) => {
   const message = []
@@ -48,26 +48,26 @@ export const checkType = (type) => {
   return isDefType(type) || isCustomType(type)
 }
 export const setData = (list, labels) => {
-  let res = [];
+  let res = []
   if (list && list.length) {
     res = list.map((value, j) => {
-      return {value, name: labels[j]};
-    });
+      return {value, name: labels[j]}
+    })
   }
-  return res;
+  return res
 }
 export const keepDecimals = (value, bit = 2) => {
   if (Number.isNaN(value)) {
-    value = 0;
-    console.error('keepDecimals value = NAN');
+    value = 0
+    console.error('keepDecimals value = NAN')
   }
   if (typeof value !== 'number' || typeof bit !== 'number') {
-    value = bit = 0;
-    console.error('keepDecimals参数不合法');
+    value = bit = 0
+    console.error('keepDecimals参数不合法')
   }
-  let num = Math.pow(10, bit);
-  return Math.round(value * num) / num;
-};
+  let num = Math.pow(10, bit)
+  return Math.round(value * num) / num
+}
 /**
  * 指定一个数字列表，返回取整之后的新列表及单位
  * @param list
@@ -80,27 +80,27 @@ export const keepDecimals = (value, bit = 2) => {
  * }
  */
 export const formatNumbers = (list = [], rate = 4) => {
-  let sortlist = list.sort((a,b) => a-b);
-  let len = (sortlist.find(item => item) + '').length -1;
+  let sortlist = list.sort((a, b) => a - b)
+  let len = (sortlist.find(item => item) + '').length - 1
   if (list.length === 0 || len < rate) {
     return {
       list: list,
       unit: '',
       divisor: 1
-    };
+    }
   }
-  if (len > UNIT_LIST.length) len = UNIT_LIST.length;
+  if (len > UNIT_LIST.length) len = UNIT_LIST.length
   if (len) {
     list = list.map(num => {
-      return num / Math.pow(10,len);
-    });
+      return num / Math.pow(10, len)
+    })
   }
   return {
     list: list,
     unit: UNIT_LIST[len],
-    divisor: Math.pow(10,len),
-  };
-};
+    divisor: Math.pow(10, len)
+  }
+}
 /**
  * 保留数字有效小数位
  * @param num
@@ -109,11 +109,11 @@ export const formatNumbers = (list = [], rate = 4) => {
  * keepDecimalPlaces(1000.0001111,2)
  * 1000.00011
  */
-export const keepDecimalPlaces = (num, bit = 2)=>{
-  if (!num) return num;
-  const reg = new RegExp(`(\\d+\\.0*[1-9]{1,${bit}})(\\d*)`);
-  return Number(String(num).replace(reg, '$`$1'));
-};
+export const keepDecimalPlaces = (num, bit = 2) => {
+  if (!num) return num
+  const reg = new RegExp(`(\\d+\\.0*[1-9]{1,${bit}})(\\d*)`)
+  return Number(String(num).replace(reg, '$`$1'))
+}
 export const getCustomTypes = function () {
   return Object.keys(get(EzChart, 'options.customCharts', {}))
 }

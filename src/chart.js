@@ -44,7 +44,7 @@ class EzChart {
     return processOption[type](data, option)
   }
   static
-  extend ({customCharts: {}, baseOptions = {}} = options) {
+  extend (options = {customCharts: {}, baseOptions: {}}) {
     EzChart.options = options
   }
   static utils = utils
