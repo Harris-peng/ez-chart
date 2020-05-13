@@ -1,78 +1,64 @@
+import cloneDeep from 'lodash/cloneDeep'
+const tooltip = {
+  trigger: 'axis'
+}
+const legend = {
+  orient: 'vertical',
+  left: 'left',
+  data: []
+}
+const xAxis = {
+  type: 'category',
+  data: []
+}
+const yAxis = {
+  type: 'value'
+}
+const grid = {
+  left: '2%',
+    top: '10%',
+    right: '4%',
+    bottom: '3%',
+    containLabel: true
+}
+const series = []
 export default {
-  line () {
-    return {
-      tooltip: {
-        show: true,
-        trigger: 'axis'
-      },
-      grid: {
-        left: '2%',
-        top: '10%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
-      },
-      xAxis: {
-        type: 'category',
-        data: []
-      },
-      yAxis: {
-        type: 'value'
-      },
-      series: []
+  ...['line', 'bar', 'scatter'].reduce((acc, curr) => {
+    acc[curr] = () => {
+      return {
+        tooltip: cloneDeep(tooltip),
+        legend: cloneDeep(legend),
+        grid: cloneDeep(grid),
+        xAxis: cloneDeep(xAxis),
+        yAxis: cloneDeep(yAxis),
+        series
+      }
     }
-  },
-  bar () {
-    return {
-      tooltip: {
-        trigger: 'axis'
-      },
-      grid: {
-        left: '2%',
-        top: '10%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
-      },
-      xAxis: {
-        type: 'category',
-        data: [],
-        axisTick: {
-          alignWithLabel: true
-        }
-      },
-      yAxis: [
-        {
-          type: 'value'
-        }
-      ],
-      series: []
-    }
-  },
+    return acc
+  }, {}),
   pie () {
     return {
       tooltip: {
-        trigger: 'item'
+        trigger: 'item',
       },
-      legend: {
-        type: 'scroll',
-        orient: 'horizontal',
-        left: 'center',
-        top: 'bottom',
-        data: []
-      },
-      series: {
-        type: 'pie',
+      legend: cloneDeep(legend),
+      series: [{
         radius: ['40%', '70%'],
-        avoidLabelOverlap: false,
         label: {show: false},
         data: []
-      }
+      }]
     }
   },
   scatter () {
     return {
-
+      tooltip: {
+        trigger: 'item',
+      },
+      xAxis: {},
+      yAxis: {},
+      series: [{
+        symbolSize: 20
+      }]
     }
   },
   effectScatter () {
@@ -109,10 +95,10 @@ export default {
   },
   funnel () {
     return {
-      title: {},
       tooltip: {
-        trigger: 'item'
+        trigger: 'item',
       },
+      legend: cloneDeep(legend),
       toolbox: {
         feature: {
           dataView: {readOnly: false},
@@ -120,7 +106,13 @@ export default {
           saveAsImage: {}
         }
       },
-      series: []
+      series: [{
+        left: '10%',
+        top: 10,
+        bottom: 10,
+        sort: 'ascending',
+        gap: 2
+      }]
     }
   },
   graph () {

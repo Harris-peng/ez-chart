@@ -1,45 +1,69 @@
 import * as utils from './utils'
-export default {
-  line (options, datas, params) {
-    const [label, ...values] = datas
-    options.xAxis.data = label
-    options.series = values.map(item => {
-      return {
-        data: item,
-        type: 'line'
-      }
-    })
-    return options
-  },
-  bar (options, datas, params = {names: []}) {
-    const [label, ...values] = datas
-    const { names = [] } = params
-    options.xAxis.data = label
-    options.series = values.map((item, index) => {
-      return {
-        name: names[index] || '',
-        type: 'bar',
-        barMaxWidth: '50',
-        data: item
-      }
-    })
-    return options
-  },
-  pie (options, datas, params) {
-    const [label, values] = datas
-    options.legend.data = label
-    options.series.data = label.map((item, index) => {
-      return {
-        name: item,
-        value: values[index]
-      }
-    })
-    return options
-  },
-  scatter () {
+import set from 'lodash/set'
+// line bar
+const processLineBar = (option, data, params = {names: []}, type) => {
+  const [labels, ...values] = data
+  const { names = [] } = params
+  if (names.length > 0) {
+    set(option, 'legend.data', names)
+  }
+  set(option, 'xAxis.data', labels)
+  option.series = values.map((item, index) => {
+    const otherSeries = utils.getSeries(option, index)
     return {
-
+      name: names[index] || '',
+      data: item,
+      type,
+      ...otherSeries
     }
+  })
+  return option
+}
+const processPieFunnel = (option, data, params = {names: []}, type) => {
+  const [labels = [], ...values] = data
+  const { names = [] } = params
+  set(option, 'legend.data', labels)
+  option.series = values.map((value, index) => {
+    const otherSeries = utils.getSeries(option, index)
+    return {
+      name: names[index] || '',
+      data: labels.map((label, index) => {
+        return {
+          name: label,
+          value: value[index]
+        }
+      }),
+      type,
+      ...otherSeries
+    }
+  })
+  return option
+}
+export default {
+  line (option, data, params) {
+    const LINE = 'line'
+    return processLineBar(option, data, params, LINE)
+  },
+  bar (option, data, params) {
+    const BAR = 'bar'
+    return processLineBar(option, data, params, BAR)
+  },
+  pie (option, data, params) {
+    const PIE = 'pie'
+    return processPieFunnel(option, data, params, PIE)
+  },
+  scatter (option, data, params = {names: []}) {
+    const { names = [] } = params
+    option.series = data.map((item, i) => {
+      const otherSeries = utils.getSeries(option, i)
+      return {
+        name: names[i] || '',
+        data: item,
+        type: 'scatter',
+        ...otherSeries
+      }
+    })
+    return option
   },
   effectScatter () {
     return {
@@ -56,34 +80,15 @@ export default {
 
     }
   },
-  treemap (options, datas, params) {
-    options.series[0].data = datas
-    return options
+  treemap (option, data, params) {
+    option.series[0].data = data
+    return option
   },
-  graph (options, datas, params) {
-    return options
+  graph (option, data, params) {
+    return option
   },
-  funnel (options, datas, params) {
-    const [labels, ...values] = datas
-    const names = params.names || []
-    const width = utils.keepDecimals(80 / values.length)
-    options.series = values.map((list, i) => {
-      return {
-        name: names[i] || '',
-        type: 'funnel',
-        left: '10%',
-        top: 10,
-        bottom: 10,
-        width: `${width}%`,
-        sort: params.sort || 'ascending',
-        gap: 2,
-        label: {
-          show: true,
-          position: 'right'
-        },
-        data: utils.setData(list, labels)
-      }
-    })
-    return options
+  funnel (option, data, params) {
+    const FUNNEL = 'funnel'
+    return processPieFunnel(option, data, params, FUNNEL)
   }
 }

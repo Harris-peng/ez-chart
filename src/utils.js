@@ -2,6 +2,7 @@ import {needOptionsKeys, UNIT_LIST} from './constant'
 import baseOptions from './options'
 import EzChart from './chart'
 import get from 'lodash/get'
+import isPlainObject from 'lodash/isPlainObject'
 const types = Object.keys(baseOptions)
 export const checkOptions = (options) => {
   const message = []
@@ -46,15 +47,6 @@ export const isCustomType = (type) => {
 }
 export const checkType = (type) => {
   return isDefType(type) || isCustomType(type)
-}
-export const setData = (list, labels) => {
-  let res = []
-  if (list && list.length) {
-    res = list.map((value, j) => {
-      return {value, name: labels[j]}
-    })
-  }
-  return res
 }
 export const keepDecimals = (value, bit = 2) => {
   if (Number.isNaN(value)) {
@@ -117,3 +109,21 @@ export const keepDecimalPlaces = (num, bit = 2) => {
 export const getCustomTypes = function () {
   return Object.keys(get(EzChart, 'options.customCharts', {}))
 }
+const other = (series) => {
+  if(!isPlainObject(series)) {
+    console.error('series参数错误')
+    return {}
+  }
+  const {data, name, type, ...other} = series;
+  return other || {}
+}
+export const getSeries = (option, index) => {
+  const { series } = option
+  if (isPlainObject(series)) {
+    return other(series)
+  } else if(Array.isArray(series)) {
+    return other(series[index] ? series[index] : (series[0] ? series[0] : {}))
+  }
+  return {}
+}
+

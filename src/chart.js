@@ -10,9 +10,9 @@ class EzChart {
   getOption (options) {
     this.checkOptions(options)
     if (utils.isDefType(this.type)) {
-      const option = EzChart.getBaseOption(this.type)
-      const data = EzChart.getData(this.keyMap, this.data)
-      return EzChart.processOption(option, data, this.type)
+      const option = this.getBaseOption(this.type)
+      const data = this.getData(this.keyMap, this.data)
+      return this.processOption(option, data, this.type)
     } else if (utils.isCustomType(this.type)) {
       return EzChart.options.customCharts[this.type].apply(this, [this.options])
     }
@@ -29,22 +29,20 @@ class EzChart {
     this.keyMap = keyMap
     this.params = params
   }
-  static
   getBaseOption (type) {
-    const option = merge(baseOptions[type](), get(EzChart, 'options.baseOptions', {}))
-    return option
+    //合并默认参数和初始化参数
+    const options = merge(baseOptions[type](), get(EzChart, 'options.echartsOption', {}))
+    merge(options, this.params.options || {})
+    return options
   }
-  static
   getData (keyMap = [], list = []) {
-    const data = utils.getParamsArray(keyMap, list)
-    return data
+    return utils.getParamsArray(keyMap, list)
   }
-  static
   processOption (data, option, type) {
     return processOption[type](data, option)
   }
   static
-  extend (options = {customCharts: {}, baseOptions: {}}) {
+  extend (options = {customCharts: {}, echartsOption: {}}) {
     EzChart.options = options
   }
   static utils = utils
