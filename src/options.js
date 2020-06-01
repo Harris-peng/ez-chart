@@ -16,10 +16,10 @@ const yAxis = {
 }
 const grid = {
   left: '2%',
-    top: '10%',
-    right: '4%',
-    bottom: '3%',
-    containLabel: true
+  top: '10%',
+  right: '4%',
+  bottom: '3%',
+  containLabel: true
 }
 const series = []
 export default {
@@ -39,7 +39,7 @@ export default {
   pie () {
     return {
       tooltip: {
-        trigger: 'item',
+        trigger: 'item'
       },
       legend: cloneDeep(legend),
       series: [{
@@ -52,7 +52,7 @@ export default {
   scatter () {
     return {
       tooltip: {
-        trigger: 'item',
+        trigger: 'item'
       },
       xAxis: {},
       yAxis: {},
@@ -96,7 +96,7 @@ export default {
   funnel () {
     return {
       tooltip: {
-        trigger: 'item',
+        trigger: 'item'
       },
       legend: cloneDeep(legend),
       toolbox: {

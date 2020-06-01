@@ -18,19 +18,19 @@ export const checkOptions = (options) => {
 }
 /**
  * 从数组对象中获取给定参数的值得数组集合
- * @param params @type Array|String 需要收集的参数列表
+ * @param keys @type Array|String 需要收集的参数列表
  * @param list @type Array 源列表数据
  * @example
- * let params = ['id','name']
+ * let keys = ['id','name']
  * let list = [{id:1,name:'xiaoming',desc:'ceshi'},{id:2,name:'xiaozhang',desc:'ceshi2'}]
- * getParamsArray(params, list)
+ * getParamsArray(keys, list)
  * @returns [[1,2],['xiaoming','xiaozhang']]
  */
-export const getParamsArray = (params = [], list = []) => {
+export const getParamsArray = (keys = [], list = []) => {
   try {
-    params = Array.isArray(params) ? params : [params]
+    keys = Array.isArray(keys) ? keys : [keys]
     return list.reduce((a, b) => {
-      return params.map((name, index) => {
+      return keys.map((name, index) => {
         return (a[index] || []).concat(b[name] || [0])
       })
     }, [])
@@ -110,20 +110,19 @@ export const getCustomTypes = function () {
   return Object.keys(get(EzChart, 'options.customCharts', {}))
 }
 const other = (series) => {
-  if(!isPlainObject(series)) {
+  if (!isPlainObject(series)) {
     console.error('series参数错误')
     return {}
   }
-  const {data, name, type, ...other} = series;
+  const {data, name, type, ...other} = series
   return other || {}
 }
 export const getSeries = (option, index) => {
   const { series } = option
   if (isPlainObject(series)) {
     return other(series)
-  } else if(Array.isArray(series)) {
+  } else if (Array.isArray(series)) {
     return other(series[index] ? series[index] : (series[0] ? series[0] : {}))
   }
   return {}
 }
-

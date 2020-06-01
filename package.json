@@ -2,7 +2,8 @@
   "name": "ez-chart",
   "version": "0.0.1",
   "description": "方便快捷的生成图表配置",
-  "main": "index.js",
+  "main": "dist/ez-chart.js",
+  "module": "src/index.js",
   "directories": {
     "example": "example"
   },
@@ -78,6 +79,10 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Harris-peng/ez-chart/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Harris-peng/ez-chart.git"
   },
   "homepage": "https://github.com/Harris-peng/ez-chart#readme",
   "dependencies": {

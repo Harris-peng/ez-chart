@@ -30,7 +30,7 @@ class EzChart {
     this.params = params
   }
   getBaseOption (type) {
-    //合并默认参数和初始化参数
+    // 合并默认参数和初始化参数
     const options = merge(baseOptions[type](), get(EzChart, 'options.echartsOption', {}))
     merge(options, this.params.options || {})
     return options
