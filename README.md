@@ -139,6 +139,16 @@ scatter keyMap中无label项
 |:-:|:-:|:-:|:-:|:-:|
 |type|指定的type类型|string|--|--|
 
+### 外部依赖
+
+```javascript
+externals: {
+    echarts: 'echarts',
+    vue: 'vue',
+    lodash: 'lodash'
+  }
+```
+
 ### 示例及使用
 结合ez-vue-chart使用
 ```javascript
