@@ -1,6 +1,6 @@
 # ez-chart
-通过简单配置参数快速生成`echarts`图表渲染所需要的`option`参数
-使用vue框架的请结合[ez-vue-chart](https://www.npmjs.com/package/ez-vue-chart)使用会更加方便
+通过配置参数生成`echarts`图表渲染所需要的`option`参数
+使用vue框架的请结合[ez-vue-chart](https://www.npmjs.com/package/ez-vue-chart)使用会更加便捷
 ## 安装
 ```bash
 npm install 'ez-chart'
@@ -43,7 +43,7 @@ instance.setOption(option);
 |:-:|:-:|:-:|:-:|:-:|
 |options|挂在到原型上的参数|object|--|--|
 |options.customCharts|自定义扩展图表类型|object<function>|--|--|
-|options.echartsOption|设置到全局的基础图表配置，会合并覆盖基础配置|object|--|--|
+|options.echartsOption|设置到全局的基础图表配置，会合并并覆盖基础配置|object|--|--|
 #### options.customCharts
 可自定义处理要生成的option参数,自动绑定this指向到当前实例对象，可以直接调用内部的`getOption`方法
 ```javascript
@@ -79,20 +79,18 @@ keyMap在条形图和折线图中 `type = bar | line` **第一位是label其余�
 如：
  `keyMap = ['date', 'max_value', 'min_value']`
 则从数据list中获取到date 作为`xAxis.data`或`yAxis.data` , `max_value`和 `min_value`则作为
-`option.series[0].data | option.series[1].data `
-数据项中的`option.series[0].name`从`options.param.names[0]`中获取
+`option.series[0].data | option.series[1].data `数据项中的`option.series[0].name`从`options.param.names[0]`中获取
 数据项中的`option.legend.data`从`options.param.names]`中获取
 #### type = pie | funnel
 keyMap 在饼图和漏斗图`type = pie | funnel`中赋值策略有不同 `option.legend.data`是keyMap的第一位
 #### type = scatter
-scatter 无label项
+scatter keyMap中无label项
 ### ezChart.getOption(options)
 同实例化EzChart
 
 ### options.type
 需要渲染的图表类型 同`echarts.series.type`目前支持
-
-`line bar pie scatter funnel`
+**`line bar pie scatter funnel`** 也可自定义扩展类型
 
 ### EzChart.utils.checkOptions(options)
 该方法用于检测必传参数
@@ -111,6 +109,20 @@ scatter 无label项
 
 ### EzChart.utils.checkType(type)
 判断用户传入的type是否支持
+
+|参数 |	说明	| 类型	| 可选值 |	默认值 |
+|:-:|:-:|:-:|:-:|:-:|
+|type|指定的type类型|string|--|--|
+
+### EzChart.utils.isDefType(type)
+判断用户传入的type是否是默认的基础类型
+
+|参数 |	说明	| 类型	| 可选值 |	默认值 |
+|:-:|:-:|:-:|:-:|:-:|
+|type|指定的type类型|string|--|--|
+
+### EzChart.utils.isCustomType(type)
+判断用户传入的type是否是自定义扩展的类型
 
 |参数 |	说明	| 类型	| 可选值 |	默认值 |
 |:-:|:-:|:-:|:-:|:-:|

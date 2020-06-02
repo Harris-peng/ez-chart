@@ -1,7 +1,7 @@
 {
   "name": "ez-chart",
-  "version": "0.0.1",
-  "description": "方便快捷的生成图表配置",
+  "version": "0.0.2",
+  "description": "快捷生成echarts图表option配置的类库",
   "main": "dist/ez-chart.js",
   "module": "src/index.js",
   "directories": {
@@ -73,6 +73,8 @@
   ],
   "keywords": [
     "echarts",
+    "ez-chart",
+    "ez-vue-chart",
     "charts"
   ],
   "author": "harris-peng",
