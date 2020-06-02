@@ -41,7 +41,7 @@ instance.setOption(option);
 
 |参数 |	说明	| 类型	| 可选值 |	默认值 |
 |:-:|:-:|:-:|:-:|:-:|
-|options|挂在到原型上的参数|object|--|--|
+|options|挂载到原型上的参数`EzChart.options`|object|--|--|
 |options.customCharts|自定义扩展图表类型|object<function>|--|--|
 |options.echartsOption|设置到全局的基础图表配置，会合并并覆盖基础配置|object|--|--|
 #### options.customCharts
@@ -63,6 +63,7 @@ EzChart.extend({
 ```
 ###  new EzChart(options)
 实例化EzChart
+
 |参数 |	说明	| 类型	| 可选值 |	默认值 |
 |:-:|:-:|:-:|:-:|:-:|
 |options|当前实例的基础参数|object|--|--|
@@ -74,19 +75,29 @@ EzChart.extend({
 |options.param.options|legend/serise.name|array<string>|--|--|
 
 >特殊说明
-#### type = bar | line
-keyMap在条形图和折线图中 `type = bar | line` **第一位是label其余均为数据项**
-如：
- `keyMap = ['date', 'max_value', 'min_value']`
-则从数据list中获取到date 作为`xAxis.data`或`yAxis.data` , `max_value`和 `min_value`则作为
-`option.series[0].data | option.series[1].data `数据项中的`option.series[0].name`从`options.param.names[0]`中获取
-数据项中的`option.legend.data`从`options.param.names]`中获取
-#### type = pie | funnel
+#### type = bar/line
+keyMap在条形图和折线图中 `type = bar | line` **第一位是label其余均为数据项** <br>
+例如：<br>
+ `keyMap = ['date', 'max_value', 'min_value']`则从数据list中获取到date 作为`xAxis.data`或`yAxis.data` , <br>
+ `max_value`和 `min_value`则作为`option.series[0].data | option.series[1].data `<br>
+ 数据项中的`option.series[0].name`从`options.param.names[0]`中获取<br>
+ 数据项中的`option.legend.data`从`options.param.names]`中获取
+#### type = pie/funnel
 keyMap 在饼图和漏斗图`type = pie | funnel`中赋值策略有不同 `option.legend.data`是keyMap的第一位
 #### type = scatter
 scatter keyMap中无label项
+
 ### ezChart.getOption(options)
-同实例化EzChart
+获取`echarts`图表渲染所需要的option参数
+
+|参数 |	说明	| 类型	| 可选值 |	默认值 |
+|:-:|:-:|:-:|:-:|:-:|
+|options.type|当前实例的图表类型|enmu|--|--|
+|options.data|数据集合|array<Object>|--|--|
+|options.keyMap|键值集合|array<string>|--|--|
+|options.params|其他自定义参数|Object|--|--|
+|options.param.names|legend/serise.name|array<string>|--|--|
+|options.param.options|legend/serise.name|array<string>|--|--|
 
 ### options.type
 需要渲染的图表类型 同`echarts.series.type`目前支持
@@ -234,12 +245,6 @@ export default {
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
 
