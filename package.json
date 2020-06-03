@@ -1,6 +1,6 @@
 {
   "name": "ez-chart",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "快捷生成echarts图表option配置的类库",
   "main": "dist/ez-chart.js",
   "directories": {
