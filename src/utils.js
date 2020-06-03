@@ -1,8 +1,7 @@
 import {needOptionsKeys, UNIT_LIST} from './constant'
 import baseOptions from './options'
 import EzChart from './chart'
-import get from 'lodash/get'
-import isPlainObject from 'lodash/isPlainObject'
+import lodash from 'lodash'
 const types = Object.keys(baseOptions)
 export const checkOptions = (options) => {
   const message = []
@@ -107,10 +106,10 @@ export const keepDecimalPlaces = (num, bit = 2) => {
   return Number(String(num).replace(reg, '$`$1'))
 }
 export const getCustomTypes = function () {
-  return Object.keys(get(EzChart, 'options.customCharts', {}))
+  return Object.keys(lodash.get(EzChart, 'options.customCharts', {}))
 }
 const other = (series) => {
-  if (!isPlainObject(series)) {
+  if (!lodash.isPlainObject(series)) {
     console.error('series参数错误')
     return {}
   }
@@ -119,7 +118,7 @@ const other = (series) => {
 }
 export const getSeries = (option, index) => {
   const { series } = option
-  if (isPlainObject(series)) {
+  if (lodash.isPlainObject(series)) {
     return other(series)
   } else if (Array.isArray(series)) {
     return other(series[index] ? series[index] : (series[0] ? series[0] : {}))

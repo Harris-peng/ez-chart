@@ -1,4 +1,4 @@
-import cloneDeep from 'lodash/cloneDeep'
+import lodash from 'lodash'
 const tooltip = {
   trigger: 'axis'
 }
@@ -26,11 +26,11 @@ export default {
   ...['line', 'bar', 'scatter'].reduce((acc, curr) => {
     acc[curr] = () => {
       return {
-        tooltip: cloneDeep(tooltip),
-        legend: cloneDeep(legend),
-        grid: cloneDeep(grid),
-        xAxis: cloneDeep(xAxis),
-        yAxis: cloneDeep(yAxis),
+        tooltip: lodash.cloneDeep(tooltip),
+        legend: lodash.cloneDeep(legend),
+        grid: lodash.cloneDeep(grid),
+        xAxis: lodash.cloneDeep(xAxis),
+        yAxis: lodash.cloneDeep(yAxis),
         series
       }
     }
@@ -41,7 +41,7 @@ export default {
       tooltip: {
         trigger: 'item'
       },
-      legend: cloneDeep(legend),
+      legend: lodash.cloneDeep(legend),
       series: [{
         radius: ['40%', '70%'],
         label: {show: false},
@@ -98,7 +98,7 @@ export default {
       tooltip: {
         trigger: 'item'
       },
-      legend: cloneDeep(legend),
+      legend: lodash.cloneDeep(legend),
       toolbox: {
         feature: {
           dataView: {readOnly: false},

@@ -1,8 +1,7 @@
 import * as utils from './utils'
 import baseOptions from './options'
 import processOption from './process-option'
-import merge from 'lodash/merge'
-import get from 'lodash/get'
+import lodash from 'lodash'
 class EzChart {
   constructor (options = {}) {
     this.options = options
@@ -31,8 +30,8 @@ class EzChart {
   }
   getBaseOption (type) {
     // 合并默认参数和初始化参数
-    const options = merge(baseOptions[type](), get(EzChart, 'options.echartsOption', {}))
-    merge(options, this.params.options || {})
+    const options = lodash.merge(baseOptions[type](), lodash.get(EzChart, 'options.echartsOption', {}))
+    lodash.merge(options, this.params.options || {})
     return options
   }
   getData (keyMap = [], list = []) {

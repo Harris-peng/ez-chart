@@ -286,20 +286,20 @@ export default {
 ### 默认样式展示
 >bar
 
-![bar](./image/bar.png)
+![bar](https://raw.githubusercontent.com/Harris-peng/ez-chart/master/image/bar.png)
 >pie
 
-![pie](./image/pie.png)
+![pie](https://raw.githubusercontent.com/Harris-peng/ez-chart/master/image/pie.png)
 >line
 
-![line](./image/line.png)
+![line](https://raw.githubusercontent.com/Harris-peng/ez-chart/master/image/line.png)
 >funnel
 
-![funnel](./image/funnel.png)
+![funnel](https://raw.githubusercontent.com/Harris-peng/ez-chart/master/image/funnel.png)
 >scatter
 
-![scatter](./image/scatter.png)
+![scatter](https://raw.githubusercontent.com/Harris-peng/ez-chart/master/image/scatter.png)
 >bottomLegind
 
-![bottomLegind](./image/bottomLegind.png)
+![bottomLegind](https://raw.githubusercontent.com/Harris-peng/ez-chart/master/image/bottomLegind.png)
 

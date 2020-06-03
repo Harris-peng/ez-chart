@@ -1,13 +1,13 @@
 import * as utils from './utils'
-import set from 'lodash/set'
+import lodash from 'lodash'
 // line bar
 const processLineBar = (option, data, params = {names: []}, type) => {
   const [labels, ...values] = data
   const { names = [] } = params
   if (names.length > 0) {
-    set(option, 'legend.data', names)
+    lodash.set(option, 'legend.data', names)
   }
-  set(option, 'xAxis.data', labels)
+  lodash.set(option, 'xAxis.data', labels)
   option.series = values.map((item, index) => {
     const otherSeries = utils.getSeries(option, index)
     return {
@@ -22,7 +22,7 @@ const processLineBar = (option, data, params = {names: []}, type) => {
 const processPieFunnel = (option, data, params = {names: []}, type) => {
   const [labels = [], ...values] = data
   const { names = [] } = params
-  set(option, 'legend.data', labels)
+  lodash.set(option, 'legend.data', labels)
   option.series = values.map((value, index) => {
     const otherSeries = utils.getSeries(option, index)
     return {
