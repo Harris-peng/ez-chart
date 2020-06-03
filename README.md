@@ -302,4 +302,3 @@ export default {
 >bottomLegind
 
 ![bottomLegind](https://raw.githubusercontent.com/Harris-peng/ez-chart/master/image/bottomLegind.png)
-
