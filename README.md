@@ -301,5 +301,5 @@ export default {
 ![scatter](./image/scatter.png)
 >bottomLegind
 
-![bottomLegind](./image/bottomLegind.png)
+![bottomLegind](https://github.com/Harris-peng/ez-chart/image/bottomLegind.png)
 
