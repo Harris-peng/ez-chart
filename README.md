@@ -35,6 +35,10 @@ const option = ezChart.getOption({data, type, keyMap})
 const instance = echarts.init({})
 instance.setOption(option);
 ```
+## 示例地址
+
+[效果展示](http://39.105.196.85:8081/)
+
 ## EzChart
 简介
 ### EzChart.extend(options)
