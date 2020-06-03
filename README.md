@@ -1,5 +1,6 @@
 # ez-chart
-通过配置参数生成`echarts`图表渲染所需要的`option`参数
+生成图表配置的工具类，现有的图表库中会有大量的重复配置，而且配置分散不好维护，在同一个项目中图表的样式基本是统一的，
+个别图形可能会有独特的样式，ez-chart就是为了解决这个问题出现的。通过一份配置参数生成`echarts`图表渲染所需要的`option`参数
 使用vue框架的请结合[ez-vue-chart](https://www.npmjs.com/package/ez-vue-chart)使用会更加便捷
 ## 安装
 ```bash
@@ -118,6 +119,11 @@ scatter keyMap中无label项
 |keys|需要获取的key值几何|string/array|--|--|
 |list|待提取数据列表|array\<object\>\--|--|
 
+```javascript
+const keys = ['id','name']
+const list = [{id:1,name:'xiaoming',desc:'ceshi'},{id:2,name:'xiaozhang',desc:'ceshi2'}]
+EzChart.utils.getParamsArray(keys, list) //[[1,2],['xiaoming','xiaozhang']]
+```
 ### EzChart.utils.checkType(type)
 判断用户传入的type是否支持
 
@@ -180,10 +186,10 @@ const test = new Vue({
 // app.vue
 <template>
   <div id="app">
-      <ez-chart :data="data" :keyMap="['label', 'val', 'val2']" type="bar" register="click"></ez-chart>
+      <ez-chart :data="data" :keyMap="['label', 'val', 'val2']" type="bar" @listener="listener" :register="['mouseover', 'click']"></ez-chart>
       <ez-chart :data="data" :keyMap="['label', 'val']" type="pie"></ez-chart>
       <ez-chart :data="data" :keyMap="['label', 'val', 'val2']" type="line"></ez-chart>
-      <ez-chart :data="data" :keyMap="['label', 'val']" type="funnel"></ez-chart>
+      <ez-chart :data="funnelData" :keyMap="['label', 'val']" type="funnel"></ez-chart>
       <ez-chart :data="data" :keyMap="['label', 'val']" log :params="{type: 'pie'}" type="bottomLegind"></ez-chart>
       <ez-chart :data="data2" :keyMap="['val']" type="scatter"></ez-chart>
   </div>
@@ -209,6 +215,24 @@ export default {
           label: 'test4',
           val: 333,
           val2: 112,
+        }
+      ],
+      funnelData: [
+        {
+          label: 'test1',
+          val: 25,
+        },
+        {
+          label: 'test2',
+          val: 50,
+        },
+        {
+          label: 'test3',
+          val: 75,
+        },
+        {
+          label: 'test4',
+          val: 100,
         }
       ],
       data2: [
@@ -249,13 +273,33 @@ export default {
         },
       ]
     }
+  },
+  methods: {
+    listener (event, parmas, data) {
+      console.log(event, parmas, data)
+    }
   }
 }
 </script>
-
-<style>
-#app {
-}
-</style>
-
 ```
+
+### 默认样式展示
+>bar
+
+![bar](./image/bar.png)
+>pie
+
+![pie](./image/pie.png)
+>line
+
+![line](./image/line.png)
+>funnel
+
+![funnel](./image/funnel.png)
+>scatter
+
+![scatter](./image/scatter.png)
+>bottomLegind
+
+![bottomLegind](./image/bottomLegind.png)
+

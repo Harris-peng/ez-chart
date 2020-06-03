@@ -3,7 +3,6 @@
   "version": "0.0.3",
   "description": "快捷生成echarts图表option配置的类库",
   "main": "dist/ez-chart.js",
-  "module": "src/index.js",
   "directories": {
     "example": "example"
   },
