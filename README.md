@@ -165,10 +165,10 @@ externals: {
 // main.js
 import Vue from 'vue'
 import App from './App.vue'
-import lodash from 'lodash';
-import echarts from 'echarts'
+import ezVuechart from 'ez-vue-chart'
 import EzChart from 'ez-chart'
-import ezVueChart from 'ez-vue-chart'
+Vue.config.productionTip = false
+Vue.use(ezVuechart);
 EzChart.extend({
   customCharts: {
     bottomLegind (options) {
